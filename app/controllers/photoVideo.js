@@ -40,3 +40,17 @@ exports.save = function *(next) {
     photoVideoUrl: photoVideoUrl
   }
 }
+
+// 获取列表
+exports.find = function *(next) {
+  var queryArray = [PhotoVideo.find({})]
+
+  data = yield queryArray
+
+  this.body = {
+    success: true,
+    data: data[0],
+    total: data[1]
+  }
+
+}
