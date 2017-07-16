@@ -6,6 +6,8 @@ var PhotoVideo = require('../models/photoVideo')
 // 保存相片或视频
 exports.save = function *(next) {
   var photoVideoUrl = this.request.body.photoVideoUrl
+  var thumbnailUrl = this.request.body.thumbnailUrl
+  // console.log('photoVideoInfo',photoVideoInfo.hash)
   var type = this.request.body.type
 
   // 创建信息
@@ -13,17 +15,18 @@ exports.save = function *(next) {
     if (type === 'video') {
       var photoVideo = new PhotoVideo({
         photoVideoUrl: photoVideoUrl,
+        thumbnailUrl: thumbnailUrl, 
         type: 'video'
       })
     }else{
       var photoVideo = new PhotoVideo({
         photoVideoUrl: photoVideoUrl,
-        type: 'photo'
+        type: 'photo',
+        thumbnailUrl: ''
       })
     }
     
   }
-
   try {
     photoVideo = yield photoVideo.save()
   }

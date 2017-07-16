@@ -54,4 +54,4 @@ app
   .use(router.allowedMethods())
 
 app.listen(1234)
-console.log('Listening: 1234')
+console.log('Listening: http://localhost/1234')
