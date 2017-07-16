@@ -30,7 +30,7 @@ exports.getQiniuToken = function(body) {
   else if (type === 'video') {
     key += '.mp4'
     options.scope = 'myphoto'
-    options.persistentOps = 'vframe/jpg/offset/1/w/480/h/360'
+    options.persistentOps = 'vframe/jpg/offset/0/rotate/auto'
     putPolicy = new qiniu.rs.PutPolicy2(options)
   }
 
