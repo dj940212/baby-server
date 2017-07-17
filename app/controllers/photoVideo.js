@@ -7,8 +7,10 @@ var PhotoVideo = require('../models/photoVideo')
 exports.save = function *(next) {
   var photoVideoUrl = this.request.body.photoVideoUrl
   var thumbnailUrl = this.request.body.thumbnailUrl
-  // console.log('photoVideoInfo',photoVideoInfo.hash)
+  var width = this.request.body.width
+  var height = this.request.body.height
   var type = this.request.body.type
+  // console.log('photoVideoInfo',photoVideoInfo.hash)
 
   // 创建信息
   if (photoVideoUrl) {
@@ -16,13 +18,17 @@ exports.save = function *(next) {
       var photoVideo = new PhotoVideo({
         photoVideoUrl: photoVideoUrl,
         thumbnailUrl: thumbnailUrl, 
+        width: width,
+        height: height,
         type: 'video'
       })
     }else{
       var photoVideo = new PhotoVideo({
         photoVideoUrl: photoVideoUrl,
         type: 'photo',
-        thumbnailUrl: ''
+        thumbnailUrl: '',
+        width: width,
+        height: height
       })
     }
     
