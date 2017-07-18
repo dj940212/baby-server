@@ -23,6 +23,7 @@ module.exports = function() {
   // photoVideo
   router.post('/photoVideo/save', App.hasBody, App.hasToken, PhotoVideo.save)
   router.get('/photoVideo/list', App.hasToken, PhotoVideo.find)
+  router.post('/photoVideo/delete', App.hasBody, App.hasToken, PhotoVideo.delete)
 
   // creations
   router.get('/creations', App.hasToken, Creation.find)

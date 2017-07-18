@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose')
 var PhotoVideo = require('../models/photoVideo')
+var uuid = require('uuid')
+var robot = require('../service/robot')
 
 // 保存相片或视频
 exports.save = function *(next) {
@@ -10,7 +12,7 @@ exports.save = function *(next) {
   var width = this.request.body.width
   var height = this.request.body.height
   var type = this.request.body.type
-  // console.log('photoVideoInfo',photoVideoInfo.hash)
+  var key = uuid.v4()
 
   // 创建信息
   if (photoVideoUrl) {
@@ -20,7 +22,8 @@ exports.save = function *(next) {
         thumbnailUrl: thumbnailUrl, 
         width: width,
         height: height,
-        type: 'video'
+        type: 'video',
+        id: 'id_'+key
       })
     }else{
       var photoVideo = new PhotoVideo({
@@ -28,7 +31,8 @@ exports.save = function *(next) {
         type: 'photo',
         thumbnailUrl: '',
         width: width,
-        height: height
+        height: height,
+        id: 'id_'+key
       })
     }
     
@@ -61,5 +65,20 @@ exports.find = function *(next) {
     data: data[0],
     total: data[1]
   }
+}
 
+// 删除
+exports.delete = function *(next) {
+  console.log("删除数据")
+  var id = this.request.body.id
+  var data = yield PhotoVideo.findOne({id:id})
+  var key = data.photoVideoUrl
+  console.log(key)
+  // robot.deleteAtQiniu("myphoto",key)
+
+  yield PhotoVideo.remove({id:id})
+
+  this.body = {
+    success: true
+  }
 }

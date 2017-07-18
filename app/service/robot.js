@@ -56,6 +56,23 @@ exports.saveToQiniu = function(url, key) {
     })
   })
 }
+// 在七牛空间删除文件
+exports.deleteAtQiniu = function(bucket, key) {
+  var mac = new qiniu.auth.digest.Mac(config.qiniu.AK, config.qiniu.SK);
+  var options = new qiniu.conf.Config();
+  options.zone = qiniu.zone.Zone_z2;  //华南
+  var bucketManager = new qiniu.rs.BucketManager(mac, options);
+
+  bucketManager.delete(bucket, key, function(err, respBody, respInfo) {
+    if (err) {
+      console.log(err);
+      //throw err;
+    } else {
+      console.log(respInfo.statusCode);
+      console.log(respBody);
+    }
+  });
+}
 
 exports.uploadToCloudinary = function(url) {
   return new Promise(function(resolve, reject) {

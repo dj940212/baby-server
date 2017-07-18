@@ -10,7 +10,10 @@ var PhotoVideoSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
-
+  id: {
+    type:String,
+    default: ''
+  },
   type: {
     type:String,
     default: 'photo'
