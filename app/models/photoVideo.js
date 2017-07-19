@@ -20,8 +20,8 @@ var PhotoVideoSchema = new Schema({
   },
 
   photoVideoUrl: {
-    type: String,
-    default: ''
+    type: Array,
+    default: []
   },
   thumbnailUrl: {
     type: String,

@@ -7,7 +7,7 @@ var robot = require('../service/robot')
 
 // 保存相片或视频
 exports.save = function *(next) {
-  var photoVideoUrl = this.request.body.photoVideoUrl
+  var photoVideoUrl = this.request.body.photoVideoUrl.split(',')
   var thumbnailUrl = this.request.body.thumbnailUrl
   var width = this.request.body.width
   var height = this.request.body.height
@@ -72,8 +72,8 @@ exports.delete = function *(next) {
   console.log("删除数据")
   var id = this.request.body.id
   var data = yield PhotoVideo.findOne({id:id})
-  var key = data.photoVideoUrl
-  console.log(key)
+  // var key = data.photoVideoUrl ? data.photoVideoUrl : ''
+  // console.log(key)
   // robot.deleteAtQiniu("myphoto",key)
 
   yield PhotoVideo.remove({id:id})
