@@ -4,6 +4,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 var Mixed = Schema.Types.Mixed
+var config = require('../../config/config')
 
 var PhotoVideoSchema = new Schema({
   user: {
@@ -42,7 +43,10 @@ var PhotoVideoSchema = new Schema({
     type: String,
     default: ''
   },
-
+  age: {
+    type: Date,
+    default: ''
+  },
   meta: {
     createAt: {
       type: Date,
@@ -56,8 +60,10 @@ var PhotoVideoSchema = new Schema({
 })
 
 PhotoVideoSchema.pre('save', function(next) {
+  console.log(this)
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
+    this.age = this.meta.createAt - new Date(config.birthday).getTime()
   }
   else {
     this.meta.updateAt = Date.now()
