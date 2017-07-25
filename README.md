@@ -8,6 +8,12 @@
 
 ## 接口目录
 
+[1、手机号注册](#1手机号注册)<br/>
+[2、验证码验证](#2验证码验证)<br/>
+[3、用户信息更新](#3用户信息更新)<br/>
+[4、获取七牛上传签名](#4获取七牛上传签名)<br/>
+[5、获取视频照片列表](#5获取视频照片列表)<br/>
+
 ## 接口列表
 
 ### 1、手机号注册
@@ -211,23 +217,4 @@ GET
     "__v" : 0
 }
 
-/* 2 */
-{
-    "_id" : ObjectId("596ff7b11220820478a4a2f9"),
-    "meta" : {
-        "createAt" : ISODate("2017-07-20T00:22:09.255Z"),
-        "updateAt" : ISODate("2017-07-20T00:22:09.255Z")
-    },
-    "content" : "",
-    "height" : "undefined",
-    "width" : "undefined",
-    "thumbnailUrl" : "",
-    "photoVideoUrl" : [ 
-        "http://ot2nmqx5r.bkt.clouddn.com/tmp_1984021442o6zAJs0qJDggmNsKmIogeSi9wsLQ1912b865aa33c384f4e719859ccf0ab1.jpeg", 
-        "http://ot2nmqx5r.bkt.clouddn.com/tmp_1984021442o6zAJs0qJDggmNsKmIogeSi9wsLQeac6f9850eb4b5336bad43717c9b0e14.jpg"
-    ],
-    "type" : "photo",
-    "id" : "id_1088aa35-73fd-4d96-af24-dd124f117502",
-    "__v" : 0
-}
 ```
