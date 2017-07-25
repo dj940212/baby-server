@@ -44,7 +44,7 @@ var PhotoVideoSchema = new Schema({
     default: ''
   },
   age: {
-    type: Date,
+    type: String,
     default: ''
   },
   meta: {
@@ -62,8 +62,12 @@ var PhotoVideoSchema = new Schema({
 PhotoVideoSchema.pre('save', function(next) {
   console.log(this)
   if (this.isNew) {
-    this.meta.createAt = this.meta.updateAt = Date.now()
-    this.age = this.meta.createAt - new Date(config.birthday).getTime()
+    this.meta.createAt = this.meta.updateAt = new Date(Date.now())
+    // var birthdayDate = new Date(config.birthday)
+    // var year = this.meta.createAt.getFullYear() - birthday.getFullYear()
+    // var month = this.meta.createAt.getMonth() - birthdayDate.getMonth()
+    // var date = timestamp.getDate()
+    // this.age = year+'岁'
   }
   else {
     this.meta.updateAt = Date.now()
