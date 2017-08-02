@@ -28,7 +28,10 @@ var PhotoVideoSchema = new Schema({
     type: String,
     default: ''
   },
-
+  text: {
+    type: String,
+    default: ''
+  },
   width: {
     type: String,
     default: ''

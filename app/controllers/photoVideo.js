@@ -9,6 +9,7 @@ var robot = require('../service/robot')
 exports.save = function *(next) {
   var photoVideoUrl = this.request.body.photoVideoUrl.split(',')
   var thumbnailUrl = this.request.body.thumbnailUrl
+  var text = this.request.body.text
   var width = this.request.body.width
   var height = this.request.body.height
   var type = this.request.body.type
@@ -23,7 +24,8 @@ exports.save = function *(next) {
         width: width,
         height: height,
         type: 'video',
-        id: 'id_'+key
+        id: 'id_'+key,
+        text: text
       })
     }else{
       var photoVideo = new PhotoVideo({
@@ -32,7 +34,8 @@ exports.save = function *(next) {
         thumbnailUrl: '',
         width: width,
         height: height,
-        id: 'id_'+key
+        id: 'id_'+key,
+        text: text
       })
     }
     
