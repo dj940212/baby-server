@@ -4,41 +4,29 @@ var mongoose = require('mongoose')
 var PhotoVideo = require('../models/photoVideo')
 var uuid = require('uuid')
 var robot = require('../service/robot')
+var utils = require('../service/utils')
+var config = require('../../config/config')
 
 // 保存相片或视频
 exports.save = function *(next) {
-  var photoVideoUrl = this.request.body.photoVideoUrl.split(',')
-  var thumbnailUrl = this.request.body.thumbnailUrl
-  var text = this.request.body.text
-  var width = this.request.body.width
-  var height = this.request.body.height
+  var photoVideoUrl = this.request.body.photoVideoUrl ? this.request.body.photoVideoUrl.split(',') : ""
+  var thumbnailUrl = this.request.body.thumbnailUrl ? this.request.body.thumbnailUrl : ""
+  var content = this.request.body.content
   var type = this.request.body.type
   var key = uuid.v4()
+  var age = utils.calAge(config.birthday)
+  var ageItem = yield PhotoVideo.findOne({age: age})
 
   // 创建信息
   if (photoVideoUrl) {
-    if (type === 'video') {
-      var photoVideo = new PhotoVideo({
-        photoVideoUrl: photoVideoUrl,
-        thumbnailUrl: thumbnailUrl, 
-        width: width,
-        height: height,
-        type: 'video',
-        id: 'id_'+key,
-        text: text
-      })
-    }else{
-      var photoVideo = new PhotoVideo({
-        photoVideoUrl: photoVideoUrl,
-        type: 'photo',
-        thumbnailUrl: '',
-        width: width,
-        height: height,
-        id: 'id_'+key,
-        text: text
-      })
-    }
-    
+    var photoVideo = new PhotoVideo({
+      photoVideoUrl: photoVideoUrl,
+      thumbnailUrl: thumbnailUrl, 
+      type: type,
+      id: 'id_'+key,
+      content: content,
+      age: ageItem ? "" : age
+    })
   }
   try {
     photoVideo = yield photoVideo.save()
