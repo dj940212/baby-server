@@ -4,7 +4,7 @@ var fs = require('fs')
 var path = require('path')
 var mongoose = require('mongoose')
 var cors = require('koa-cors')
-var db = 'mongodb://localhost:27017/pic-app'
+var db = 'mongodb://27.0.0.1:27017/baby-data -u baby_wxapp_runner -p dj15155620677'
 
 mongoose.Promise = require('bluebird')
 mongoose.connect(db)

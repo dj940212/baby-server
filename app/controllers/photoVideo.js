@@ -63,9 +63,6 @@ exports.delete = function *(next) {
   console.log("删除数据")
   var id = this.request.body.id
   var data = yield PhotoVideo.findOne({id:id})
-  // var key = data.photoVideoUrl ? data.photoVideoUrl : ''
-  // console.log(key)
-  // robot.deleteAtQiniu("myphoto",key)
 
   yield PhotoVideo.remove({id:id})
 
