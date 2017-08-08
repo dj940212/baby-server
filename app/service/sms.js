@@ -22,7 +22,7 @@ exports.send = function(phoneNumber, msg) {
 
     var postData = {
       mobile: phoneNumber,
-      message: msg + '【狗狗说】'
+      message: msg + '【小程序-田京墨】'
     }
 
     var content = querystring.stringify(postData)

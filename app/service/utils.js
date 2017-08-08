@@ -4,7 +4,7 @@ exports.calAge = function(birthday) {
     var interval = new Date(today - birthday)
     var yearTime = interval.getFullYear() - 1970
     var year = yearTime ? yearTime + "岁" : "" 
-    var month = interval.getMonth()
+    var month = interval.getMonth() + 1
     var day = interval.getDate()
 
     
