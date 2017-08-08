@@ -4,7 +4,7 @@ var fs = require('fs')
 var path = require('path')
 var mongoose = require('mongoose')
 var cors = require('koa-cors')
-var db = 'mongodb://27.0.0.1:27017/baby-data -u baby_wxapp_runner -p dj15155620677'
+var db = 'mongodb://baby_wxapp_runner:dj15155620677@27.0.0.1:27017/baby-data'
 
 mongoose.Promise = require('bluebird')
 mongoose.connect(db)
@@ -53,5 +53,5 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
 
-app.listen(1234)
-console.log('Listening: http://localhost/1234')
+app.listen(8084)
+console.log('Listening: http://localhost/8084')
