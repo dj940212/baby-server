@@ -19,7 +19,6 @@ var PhotoVideoSchema = new Schema({
     type:String,
     default: 'photo'
   },
-
   photoVideoUrl: {
     type: Array,
     default: []
@@ -28,20 +27,14 @@ var PhotoVideoSchema = new Schema({
     type: String,
     default: ''
   },
-  text: {
-    type: String,
-    default: ''
-  },
   width: {
     type: String,
     default: ''
   },
-
   height: {
     type: String,
     default: ''
   },
-  
   content: {
     type: String,
     default: ''
@@ -66,11 +59,6 @@ PhotoVideoSchema.pre('save', function(next) {
   console.log(this)
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = new Date(Date.now())
-    // var birthdayDate = new Date(config.birthday)
-    // var year = this.meta.createAt.getFullYear() - birthday.getFullYear()
-    // var month = this.meta.createAt.getMonth() - birthdayDate.getMonth()
-    // var date = timestamp.getDate()
-    // this.age = year+'岁'
   }
   else {
     this.meta.updateAt = Date.now()
