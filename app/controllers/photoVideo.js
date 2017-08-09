@@ -11,7 +11,7 @@ var config = require('../../config/config')
 exports.save = function *(next) {
   var photoVideoUrl = this.request.body.photoVideoUrl ? this.request.body.photoVideoUrl.split(',') : ""
   var thumbnailUrl = this.request.body.thumbnailUrl ? this.request.body.thumbnailUrl : ""
-  var content = this.request.body.content
+  var content = this.request.body.content ? this.request.body.content : ""
   var type = this.request.body.type
   var key = uuid.v4()
   var age = utils.calAge(config.birthday)
@@ -21,7 +21,7 @@ exports.save = function *(next) {
   if (photoVideoUrl) {
     var photoVideo = new PhotoVideo({
       photoVideoUrl: photoVideoUrl,
-      thumbnailUrl: thumbnailUrl, 
+      thumbnailUrl: type==="video" ? thumbnailUrl : "", 
       type: type,
       id: 'id_'+key,
       content: content,
@@ -47,7 +47,9 @@ exports.save = function *(next) {
 
 // 获取列表
 exports.find = function *(next) {
-  var queryArray = [PhotoVideo.find({})]
+  var count = this.query.count || 7
+  var skipNum = this.query.skipNum || 0
+  var queryArray = [PhotoVideo.find({}).sort({'meta.createAt': -1}).skip(parseInt(skipNum)).limit(parseInt(count))]
 
   data = yield queryArray
 

@@ -16,29 +16,31 @@ cloudinary.config(config.cloudinary)
 exports.getQiniuToken = function(body) {
   var type = body.type
   var key = uuid.v4()
+  var thumbKey = uuid.v4()
   var putPolicy
   var options = {
     persistentNotifyUrl: config.notify
   }
 
   if (type === 'photo') {
-    // putPolicy.callbackUrl = 'http://your.domain.com/callback'
-    // putPolicy.callbackBody = 'filename=$(fname)&filesize=$(fsize)'
-    // key += '.jpeg'
-    putPolicy = new qiniu.rs.PutPolicy('myphoto')
+    key += '.jpeg'
+    putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket)
   }
   else if (type === 'video') {
     key += '.mp4'
-    options.scope = 'myphoto'
-    options.persistentOps = 'vframe/jpg/offset/0/rotate/auto'
+    thumbKey += '.jpeg'
+    options.scope = config.qiniu.bucket
+    var saveJpgEntry = qiniu.util.urlsafeBase64Encode(config.qiniu.bucket+":"+thumbKey)
+    options.persistentOps = 'vframe/jpg/offset/0/rotate/auto|saveas/' + saveJpgEntry
     putPolicy = new qiniu.rs.PutPolicy2(options)
   }
 
   var token = putPolicy.token()
 
   return {
-    // key: key,
-    uptoken: token
+    key: key,
+    uptoken: token,
+    thumbKey: type==="video" ? thumbKey : ""
   }
 }
 // 
