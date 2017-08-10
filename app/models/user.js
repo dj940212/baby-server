@@ -3,10 +3,6 @@
 var mongoose = require('mongoose')
 
 var UserSchema = new mongoose.Schema({
-  phoneNumber: {
-    unique: true,
-    type: String
-  },
   authorization: {
     type: Boolean,
     default: false
@@ -14,6 +10,7 @@ var UserSchema = new mongoose.Schema({
   openid: String,
   nickname: String,
   age: String,
+  accessToken: String,
   meta: {
     createAt: {
       type: Date,
