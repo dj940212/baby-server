@@ -9,6 +9,7 @@
   "author": "Scott",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "bluebird": "^3.4.1",
     "cloudinary": "^1.4.1",
     "koa": "^1.2.0",

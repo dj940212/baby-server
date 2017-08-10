@@ -16,13 +16,14 @@ module.exports = function() {
   router.post('/u/signup', App.hasBody, User.signup)
   router.post('/u/verify', App.hasBody, User.verify)
   router.post('/u/update', App.hasBody, App.hasToken, User.update)
+  router.post('u/register', App.hasBody, User.register)
 
   // app
   router.post('/signature', App.hasBody, App.hasToken, App.signature)
 
   // photoVideo
   router.post('/photoVideo/save', App.hasBody, App.hasToken, PhotoVideo.save)
-  router.get('/photoVideo/list', App.hasToken, PhotoVideo.find)
+  router.get('/photoVideo/list', PhotoVideo.find)
   router.post('/photoVideo/delete', App.hasBody, App.hasToken, PhotoVideo.delete)
 
   // creations

@@ -5,6 +5,7 @@ var mongoose = require('mongoose')
 var User = mongoose.model('User')
 var uuid = require('uuid')
 var sms = require('../service/sms')
+var axios = require('axios')
 
 // 注册，填手机号
 exports.signup = function *(next) {
@@ -102,6 +103,50 @@ exports.verify = function *(next) {
       err: '验证未通过'
     }
   }
+}
+
+// 注册
+exports.register = function *(next) {
+  var jscode = this.request.body.jscode
+  var nickname = this.request.body.nickname
+
+  axios.get('https://api.weixin.qq.com/sns/jscode2session',{
+    params: {
+      appid: 'wx0cabd8483ff83d59',
+      secret: '67095a452704f90ce9d890c269ebac72',
+      js_code: jscode,
+      grant_type: authorization_code
+    }
+  }).then(function(res){
+    'use strict'
+
+    console.log(res)
+    var openid = res.openid
+    var user =  User.findOne({ openid: openid}).exec()
+
+    if (!user) {
+      user = new User({
+        openid: openid,
+        nickname: nickname,
+        authorization: false
+      })
+    }else {
+
+    }
+    try {
+      user = user.save()
+    }
+    catch (e) {
+      this.body = {
+        success: false
+      }
+      return next
+    }
+
+    this.body = {
+      success: true
+    }
+  })
 }
 
 // 更新用户信息

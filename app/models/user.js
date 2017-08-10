@@ -7,18 +7,13 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     type: String
   },
-  areaCode: String,
-  verifyCode: String,
-  verified: {
+  authorization: {
     type: Boolean,
     default: false
   },
-  accessToken: String,
+  openid: String,
   nickname: String,
-  gender: String,
-  breed: String,
   age: String,
-  avatar: String,
   meta: {
     createAt: {
       type: Date,
