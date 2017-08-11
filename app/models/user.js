@@ -8,7 +8,7 @@ var UserSchema = new mongoose.Schema({
     default: false
   },
   openid: String,
-  nickname: String,
+  nickName: String,
   age: String,
   accessToken: String,
   meta: {

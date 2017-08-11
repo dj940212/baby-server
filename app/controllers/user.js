@@ -143,7 +143,7 @@ exports.register = function *(next) {
   })
 
   _this.body ={
-    openid: data.openid 
+    openid: data.openid
   }
 }
 
