@@ -119,7 +119,6 @@ exports.register = function *(next) {
     }
   }).then(function(res){
     var openid = res.data.openid
-    
     User.findOne({openid: openid },function(err,doc){
       if (err) {
         console.log("错误")
@@ -173,6 +172,31 @@ exports.update = function *(next) {
       gender: user.gender,
       _id: user._id
     }
+  }
+}
+
+exports.getAuthorization = function *(next) {
+  var openid = this.request.body.openid
+
+  // 查看是否授权
+  var user = yield User.findOne({
+    openid: openid,
+    authorization: true
+  })
+  .exec()
+
+  if (!user) {
+    this.body = {
+      errNum: 0,
+      msg: "没有权限"
+    }
+
+    return next
+  }
+
+  this.body = {
+    errNum: 1,
+    msg: "拥有权限"
   }
 }
 
