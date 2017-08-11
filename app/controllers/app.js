@@ -70,15 +70,10 @@ exports.hasToken = function *(next) {
 }
 
 exports.hasAuthorization = function *(next) {
-  var openid = this.body.openid
+  var openid = this.query.openid || ""
 
-  if (!accessToken) {
-    this.body = {
-      success: false,
-      err: '钥匙丢了'
-    }
-
-    return next
+  if (!openid) {
+    openid = this.request.body.openid || ""
   }
   // 查看是否授权
   var user = yield User.findOne({
@@ -89,8 +84,8 @@ exports.hasAuthorization = function *(next) {
 
   if (!user) {
     this.body = {
-      errNum: 0
-      msg: "没有权限",
+      errNum: 0,
+      msg: "没有权限"
     }
 
     return next
