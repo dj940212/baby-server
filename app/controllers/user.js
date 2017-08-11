@@ -130,7 +130,7 @@ exports.register = function *(next) {
           var user = new User({
             openid: openid,
             nickName: nickName,
-            authorization: false,
+            authorization: true,
             accessToken : "e66b46bd-1445-4b90-a541-7dc07f41ca73"
           })
           user = user.save()

@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var UserSchema = new mongoose.Schema({
   authorization: {
     type: Boolean,
-    default: false
+    default: true
   },
   openid: String,
   nickName: String,
