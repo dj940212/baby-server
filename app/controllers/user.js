@@ -107,7 +107,7 @@ exports.verify = function *(next) {
 // 注册
 exports.register = function *(next) {
   var jscode = this.request.body.jscode
-  var nickname = this.request.body.nickname
+  var nickName = this.request.body.nickName
   var _this = this
 
   var data = yield axios.get('https://api.weixin.qq.com/sns/jscode2session',{
@@ -118,39 +118,33 @@ exports.register = function *(next) {
       grant_type: "authorization_code"
     }
   }).then(function(res){
-    console.log("返回数据",res.data)
     var openid = res.data.openid
-
-    return res.data;
-
-    // _this.body = {
-    //   openid: openid
-    // }
     
-    // User.findOne({openid: openid },function(err,doc){
-    //   if (err) {
-    //     console.log("错误")
-    //   }else{
-    //     if (doc) {
-    //       console.log("用户存在")
-    //     }else{
-    //       console.log("创建新用户")
-    //       var user = new User({
-    //         openid: openid,
-    //         nickname: nickname,
-    //         authorization: false,
-    //         accessToken : "e66b46bd-1445-4b90-a541-7dc07f41ca73"
-    //       })
-    //       user = user.save()
-    //     }
-    //   }
-    // })
+    User.findOne({openid: openid },function(err,doc){
+      if (err) {
+        console.log("错误")
+      }else{
+        if (doc) {
+          console.log("用户存在")
+        }else{
+          console.log("创建新用户")
+          var user = new User({
+            openid: openid,
+            nickName: nickName,
+            authorization: false,
+            accessToken : "e66b46bd-1445-4b90-a541-7dc07f41ca73"
+          })
+          user = user.save()
+        }
+      }
+    })
+    return res.data;
   }).catch(function(err){
     console.log(err)
   })
 
   _this.body ={
-    openid: data 
+    openid: data.openid 
   }
 }
 

@@ -69,4 +69,37 @@ exports.hasToken = function *(next) {
   yield next
 }
 
+exports.hasAuthorization = function *(next) {
+  var openid = this.body.openid
+
+  if (!accessToken) {
+    this.body = {
+      success: false,
+      err: '钥匙丢了'
+    }
+
+    return next
+  }
+  // 查看是否授权
+  var user = yield User.findOne({
+    openid: openid,
+    authorization: true
+  })
+  .exec()
+
+  if (!user) {
+    this.body = {
+      errNum: 0
+      msg: "没有权限",
+    }
+
+    return next
+  }
+
+  this.session = this.session || {}
+  this.session.user = user
+
+  yield next
+}
+
 
