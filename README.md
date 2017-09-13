@@ -1,5 +1,3 @@
-openid: onUjx0FxeSU2-w4WFkVeTGNVLkbQ
-
 ## 启动项目
 #### 克隆 
 >git clone git@github.com:dj940212/baby-server.git
